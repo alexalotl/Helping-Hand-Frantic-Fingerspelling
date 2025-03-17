@@ -1,0 +1,37 @@
+[gd_resource type="Theme" load_steps=5 format=3 uid="uid://klkekg5ioxvv"]
+
+[ext_resource type="FontFile" uid="uid://c1yv5y5qfaf0g" path="res://fonts/AnimeAceRegular.otf" id="1_j30ko"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bemuh"]
+bg_color = Color(0.806437, 0.218117, 0.392583, 0.431373)
+border_width_bottom = 12
+border_color = Color(0.343817, 0.0956296, 0.162964, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+expand_margin_left = 12.0
+expand_margin_top = 12.0
+expand_margin_right = 12.0
+expand_margin_bottom = 12.0
+shadow_color = Color(0.312794, 0.220464, 0.331964, 0.6)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_t87fb"]
+bg_color = Color(0.293374, 0.184962, 0.272015, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_msp2k"]
+bg_color = Color(0.879046, 0.426967, 0.661496, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[resource]
+default_font = ExtResource("1_j30ko")
+Panel/styles/panel = SubResource("StyleBoxFlat_bemuh")
+ProgressBar/styles/background = SubResource("StyleBoxFlat_t87fb")
+ProgressBar/styles/fill = SubResource("StyleBoxFlat_msp2k")

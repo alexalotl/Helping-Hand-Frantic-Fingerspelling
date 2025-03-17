@@ -1,0 +1,271 @@
+[gd_scene load_steps=18 format=3 uid="uid://bx2g1b7k472dq"]
+
+[ext_resource type="Script" path="res://scenes/game/levels/level.gd" id="1_qwy24"]
+[ext_resource type="Material" uid="uid://c35wlqgjs3s0r" path="res://materials/test_wall.tres" id="2_ld2vk"]
+[ext_resource type="PackedScene" uid="uid://dbuoid5kfgfxg" path="res://scenes/game/objects/interactables/printer/printer.tscn" id="3_7mu5l"]
+[ext_resource type="PackedScene" uid="uid://dwch85am7jbog" path="res://scenes/game/objects/interactables/terminal/terminal.tscn" id="4_f8ey4"]
+[ext_resource type="PackedScene" uid="uid://cwl2w7ibjphtu" path="res://scenes/game/objects/interactables/intercom/intercom.tscn" id="5_6nknu"]
+[ext_resource type="PackedScene" uid="uid://cbeqygrwrsafd" path="res://scenes/game/GameManager.tscn" id="8_m07h7"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_5v4ew"]
+size = Vector3(20, 0.1, 20)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_ahyrb"]
+size = Vector2(20, 20)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_4bhs4"]
+material = ExtResource("2_ld2vk")
+size = Vector2(20, 20)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_cjph8"]
+size = Vector3(0.1, 5, 20)
+
+[sub_resource type="BoxMesh" id="BoxMesh_ywt8f"]
+size = Vector3(0.1, 5, 6)
+
+[sub_resource type="BoxMesh" id="BoxMesh_w4fcu"]
+size = Vector3(0.1, 5, 6)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fv0js"]
+transparency = 3
+alpha_hash_scale = 0.0
+alpha_antialiasing_mode = 0
+blend_mode = 3
+albedo_color = Color(0.962619, 0.976188, 0.984438, 0.356863)
+
+[sub_resource type="BoxMesh" id="BoxMesh_eixmm"]
+material = SubResource("StandardMaterial3D_fv0js")
+size = Vector3(0.1, 5, 8)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_8miw3"]
+size = Vector3(20, 5, 0.1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_42ulx"]
+material = ExtResource("2_ld2vk")
+size = Vector3(20, 5, 0.1)
+
+[sub_resource type="Environment" id="Environment_5ol2k"]
+background_mode = 1
+background_color = Color(0.34679, 0.234054, 0.361504, 1)
+ambient_light_color = Color(0.182555, 0.393938, 0.499385, 1)
+
+[node name="Level3" type="Node3D" node_paths=PackedStringArray("player_1_spawn", "player_2_spawn")]
+script = ExtResource("1_qwy24")
+player_1_spawn = NodePath("Spawns/PlayerSpawn1")
+player_2_spawn = NodePath("Spawns/PlayerSpawn2")
+next_level = "res://scenes/game/levels/level_4.tscn"
+
+[node name="Spawns" type="Node3D" parent="."]
+
+[node name="PlayerSpawn1" type="Marker3D" parent="Spawns"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.5, 0, 0)
+
+[node name="PlayerSpawn2" type="Marker3D" parent="Spawns"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.5, 0, 0)
+
+[node name="Players" type="Node3D" parent="."]
+
+[node name="Cameras" type="Node3D" parent="."]
+
+[node name="Environment" type="Node3D" parent="."]
+
+[node name="Floor" type="StaticBody3D" parent="Environment"]
+collision_layer = 4
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/Floor"]
+shape = SubResource("BoxShape3D_5v4ew")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Environment/Floor"]
+mesh = SubResource("PlaneMesh_ahyrb")
+
+[node name="Ceiling" type="StaticBody3D" parent="Environment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 0)
+collision_layer = 4
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/Ceiling"]
+shape = SubResource("BoxShape3D_5v4ew")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Environment/Ceiling"]
+transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0)
+mesh = SubResource("PlaneMesh_4bhs4")
+
+[node name="DividingWall" type="StaticBody3D" parent="Environment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
+collision_layer = 4
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/DividingWall"]
+shape = SubResource("BoxShape3D_cjph8")
+
+[node name="LeftPanel" type="MeshInstance3D" parent="Environment/DividingWall"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 7)
+material_override = ExtResource("2_ld2vk")
+mesh = SubResource("BoxMesh_ywt8f")
+skeleton = NodePath("../..")
+
+[node name="RightPanel" type="MeshInstance3D" parent="Environment/DividingWall"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -7)
+material_override = ExtResource("2_ld2vk")
+mesh = SubResource("BoxMesh_w4fcu")
+skeleton = NodePath("../..")
+
+[node name="Window" type="MeshInstance3D" parent="Environment/DividingWall"]
+mesh = SubResource("BoxMesh_eixmm")
+skeleton = NodePath("../..")
+
+[node name="EdgeWall1" type="StaticBody3D" parent="Environment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, -10)
+collision_layer = 4
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/EdgeWall1"]
+shape = SubResource("BoxShape3D_8miw3")
+
+[node name="WallMesh" type="MeshInstance3D" parent="Environment/EdgeWall1"]
+mesh = SubResource("BoxMesh_42ulx")
+skeleton = NodePath("../..")
+
+[node name="EdgeWall2" type="StaticBody3D" parent="Environment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 10)
+collision_layer = 4
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/EdgeWall2"]
+shape = SubResource("BoxShape3D_8miw3")
+
+[node name="WallMesh" type="MeshInstance3D" parent="Environment/EdgeWall2"]
+mesh = SubResource("BoxMesh_42ulx")
+skeleton = NodePath("../..")
+
+[node name="EdgeWall3" type="StaticBody3D" parent="Environment"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -10, 2.5, 4.37114e-07)
+collision_layer = 4
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/EdgeWall3"]
+shape = SubResource("BoxShape3D_8miw3")
+
+[node name="WallMesh" type="MeshInstance3D" parent="Environment/EdgeWall3"]
+mesh = SubResource("BoxMesh_42ulx")
+skeleton = NodePath("../..")
+
+[node name="EdgeWall4" type="StaticBody3D" parent="Environment"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 10, 2.5, -4.37114e-07)
+collision_layer = 4
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/EdgeWall4"]
+shape = SubResource("BoxShape3D_8miw3")
+
+[node name="WallMesh" type="MeshInstance3D" parent="Environment/EdgeWall4"]
+mesh = SubResource("BoxMesh_42ulx")
+skeleton = NodePath("../..")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Environment"]
+environment = SubResource("Environment_5ol2k")
+
+[node name="Lights" type="Node3D" parent="Environment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+
+[node name="Light1" type="OmniLight3D" parent="Environment/Lights"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 5, 0)
+light_color = Color(0.901798, 0.648336, 0.708781, 1)
+light_energy = 4.0
+shadow_enabled = true
+omni_range = 12.0
+omni_attenuation = 0.6
+
+[node name="Light2" type="OmniLight3D" parent="Environment/Lights"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 5, 0)
+light_color = Color(0.516683, 0.823584, 0.846425, 1)
+light_energy = 4.0
+shadow_enabled = true
+omni_range = 12.0
+omni_attenuation = 0.6
+
+[node name="Light5" type="OmniLight3D" parent="Environment/Lights"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 5, -5)
+light_color = Color(0.901798, 0.648336, 0.708781, 1)
+light_energy = 4.0
+shadow_enabled = true
+omni_range = 12.0
+omni_attenuation = 0.6
+
+[node name="Light6" type="OmniLight3D" parent="Environment/Lights"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 5, -5)
+light_color = Color(0.516683, 0.823584, 0.846425, 1)
+light_energy = 4.0
+shadow_enabled = true
+omni_range = 12.0
+omni_attenuation = 0.6
+
+[node name="Light3" type="OmniLight3D" parent="Environment/Lights"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 5, 5)
+light_color = Color(0.901798, 0.648336, 0.708781, 1)
+light_energy = 4.0
+shadow_enabled = true
+omni_range = 12.0
+omni_attenuation = 0.6
+
+[node name="Light4" type="OmniLight3D" parent="Environment/Lights"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 5, 5)
+light_color = Color(0.516683, 0.823584, 0.846425, 1)
+light_energy = 4.0
+shadow_enabled = true
+omni_range = 12.0
+omni_attenuation = 0.6
+
+[node name="Interactables" type="Node3D" parent="."]
+
+[node name="Printer" parent="Interactables" node_paths=PackedStringArray("game_manager") instance=ExtResource("3_7mu5l")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -5, 0.5, 8)
+word_list = Array[String](["A", "E", "I", "O", "U"])
+step1player = 2
+step2player = 1
+game_manager = NodePath("../../GameManager")
+
+[node name="Terminal" parent="Interactables" node_paths=PackedStringArray("game_manager") instance=ExtResource("4_f8ey4")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 5, 0.5, 8)
+step1player = 1
+step2player = 2
+game_manager = NodePath("../../GameManager")
+
+[node name="Intercom" parent="Interactables" node_paths=PackedStringArray("game_manager") instance=ExtResource("5_6nknu")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 9.9, 2.4, 0)
+text = Array[String](["Press \"R\" to ready up!"])
+game_manager = NodePath("../../GameManager")
+
+[node name="Intercom2" parent="Interactables" node_paths=PackedStringArray("game_manager") instance=ExtResource("5_6nknu")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -9.9, 2.4, 0)
+text = Array[String](["Press \"R\" to ready up!"])
+game_manager = NodePath("../../GameManager")
+
+[node name="Printer2" parent="Interactables" node_paths=PackedStringArray("game_manager") instance=ExtResource("3_7mu5l")]
+transform = Transform3D(1, 0, 1.74846e-07, 0, 1, 0, -1.74846e-07, 0, 1, 5, 0.5, -8)
+word_list = Array[String](["A", "E", "I", "O", "U"])
+step1player = 1
+step2player = 2
+game_manager = NodePath("../../GameManager")
+
+[node name="Terminal2" parent="Interactables" node_paths=PackedStringArray("game_manager") instance=ExtResource("4_f8ey4")]
+transform = Transform3D(1, 0, 1.74846e-07, 0, 1, 0, -1.74846e-07, 0, 1, -5, 0.5, -8)
+step1player = 2
+step2player = 1
+game_manager = NodePath("../../GameManager")
+
+[node name="PlayerSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("res://scenes/game/characters/player/player_character.tscn")
+spawn_path = NodePath("../Players")
+spawn_limit = 2
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("res://scenes/game/cameras/player_cam_rig.tscn")
+spawn_path = NodePath("../Cameras")
+spawn_limit = 2
+
+[node name="GameManager" parent="." node_paths=PackedStringArray("intercoms") instance=ExtResource("8_m07h7")]
+star1_score = 180
+star2_score = 200
+star3_score = 420
+signs = Array[String](["a", "e", "i", "o", "u"])
+intro_text = Array[String](["Now let's try learning how to fingerspell. We'll start out simple.", "You'll just need to communicate individual vowels in this level. Good luck!"])
+intercoms = [NodePath("../Interactables/Intercom"), NodePath("../Interactables/Intercom2")]
+hint0 = Array[String](["Take a closer look at the signs. They aren't too different from the numbers."])
+hint1 = Array[String](["Good start. Try to memorise all 5 vowels."])
+hint2 = Array[String](["Nice progress! Keep going, you'll need a lot of points to get all three stars!"])
+hint3 = Array[String](["Amazing. You've got these vowels really worked out."])

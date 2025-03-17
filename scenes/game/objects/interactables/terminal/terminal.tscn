@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3 uid="uid://dwch85am7jbog"]
+
+[ext_resource type="Script" path="res://scenes/game/objects/interactables/terminal/terminal.gd" id="1_rnvo0"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6thft"]
+albedo_color = Color(0.818228, 0.548811, 0.708131, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_r6eya"]
+material = SubResource("StandardMaterial3D_6thft")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_kmwhj"]
+
+[node name="Terminal" type="StaticBody3D" node_paths=PackedStringArray("cam")]
+script = ExtResource("1_rnvo0")
+msg = "INPUT TEXT >"
+cam = NodePath("Camera3D")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_r6eya")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_kmwhj")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.6)
+cull_mask = 1048573
+
+[node name="Label3D" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.501)
+text = "TEST"

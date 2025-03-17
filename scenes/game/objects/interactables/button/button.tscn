@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3 uid="uid://dvurt8rspyqlw"]
+
+[ext_resource type="Script" path="res://scenes/game/objects/interactables/button/button.gd" id="1_tw800"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_y36fk"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ux2hw"]
+albedo_color = Color(0.320109, 0.444118, 0.851688, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_q8an2"]
+material = SubResource("StandardMaterial3D_ux2hw")
+
+[node name="Button" type="StaticBody3D" node_paths=PackedStringArray("cam")]
+script = ExtResource("1_tw800")
+cam = NodePath("InteractCamButton")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_y36fk")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_q8an2")
+
+[node name="InteractCamButton" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.6)
+cull_mask = 1048573
+
+[node name="Label3D" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.501)
+text = "TEST"

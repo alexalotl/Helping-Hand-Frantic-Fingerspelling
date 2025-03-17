@@ -1,0 +1,8 @@
+[gd_resource type="LabelSettings" load_steps=2 format=3 uid="uid://yv0ykno7ch5"]
+
+[ext_resource type="FontFile" uid="uid://c1yv5y5qfaf0g" path="res://fonts/AnimeAceRegular.otf" id="1_860q5"]
+
+[resource]
+line_spacing = 0.0
+font = ExtResource("1_860q5")
+font_size = 10

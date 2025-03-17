@@ -1,0 +1,32 @@
+[gd_scene load_steps=3 format=3 uid="uid://cbeqygrwrsafd"]
+
+[ext_resource type="Script" path="res://scenes/game/game_manager.gd" id="1_26ks1"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_v0qn1"]
+properties/0/path = NodePath(".:score")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:time_left")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath(".:ready_players")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+
+[node name="GameManager" type="Node"]
+script = ExtResource("1_26ks1")
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("res://scenes/game/gameplay/task.tscn")
+spawn_path = NodePath("../Tasks")
+spawn_limit = 6
+
+[node name="Tasks" type="Node" parent="."]
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_v0qn1")
+
+[node name="LevelTimer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="LevelTimer" to="." method="_on_level_timer_timeout"]

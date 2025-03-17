@@ -1,0 +1,399 @@
+[gd_scene load_steps=20 format=3 uid="uid://bjlf1etnr23cf"]
+
+[ext_resource type="Script" path="res://scenes/game/ui/game_ui/ui_manager.gd" id="1_p80l8"]
+[ext_resource type="Script" path="res://scenes/game/ui/game_ui/score.gd" id="2_3xhpb"]
+[ext_resource type="PackedScene" uid="uid://ccbxsuru0p8uo" path="res://scenes/game/ui/text_box.tscn" id="2_j0slu"]
+[ext_resource type="Script" path="res://scenes/game/ui/game_ui/game_ui.gd" id="2_kx777"]
+[ext_resource type="Script" path="res://scenes/game/ui/sign_menu/sign_menu.gd" id="3_6r30l"]
+[ext_resource type="Theme" uid="uid://e78vaxtv1jt8" path="res://themes/sprout_text.theme" id="3_yot4q"]
+[ext_resource type="FontFile" uid="uid://c1yv5y5qfaf0g" path="res://fonts/AnimeAceRegular.otf" id="5_evruw"]
+[ext_resource type="LabelSettings" uid="uid://gilplqrrg5k3" path="res://textures/ui/game/timer_label.tres" id="5_ofmrh"]
+[ext_resource type="Script" path="res://scenes/game/ui/game_ui/timer.gd" id="5_peuix"]
+[ext_resource type="LabelSettings" uid="uid://j4mfpc0qg6fu" path="res://textures/ui/game/score_label.tres" id="7_dm7jd"]
+[ext_resource type="Texture2D" uid="uid://dd63utkkylxq2" path="res://textures/ui/game/star_empty.png" id="9_noxkl"]
+[ext_resource type="Script" path="res://scenes/game/ui/game_ui/end_menu.gd" id="9_r61f7"]
+[ext_resource type="PackedScene" uid="uid://dlrxiqbyvoiuj" path="res://scenes/game/ui/game_ui/level_select.tscn" id="11_fuj7d"]
+[ext_resource type="Script" path="res://scenes/game/ui/game_ui/menu_ui.gd" id="11_sul2b"]
+[ext_resource type="PackedScene" uid="uid://catfu4ntbni62" path="res://scenes/game/ui/game_ui/main_menu.tscn" id="12_spm6h"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_whjnv"]
+font = ExtResource("5_evruw")
+font_size = 48
+
+[sub_resource type="LabelSettings" id="LabelSettings_j32bo"]
+line_spacing = -20.0
+font_size = 54
+
+[sub_resource type="LabelSettings" id="LabelSettings_2hvk4"]
+line_spacing = -20.0
+font_size = 32
+
+[sub_resource type="LabelSettings" id="LabelSettings_h1fs1"]
+line_spacing = -20.0
+font_size = 45
+
+[node name="UI" type="Control"]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_p80l8")
+
+[node name="Canvas" type="CanvasLayer" parent="."]
+
+[node name="GameUI" type="MarginContainer" parent="Canvas"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 28.0
+offset_top = 23.0
+offset_right = -32.0
+offset_bottom = -31.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("2_kx777")
+
+[node name="Score" type="Control" parent="Canvas/GameUI"]
+layout_mode = 2
+mouse_filter = 2
+script = ExtResource("2_3xhpb")
+
+[node name="ScoreContainer" type="MarginContainer" parent="Canvas/GameUI/Score"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -90.0
+offset_right = 240.0
+grow_vertical = 0
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="ScoreLabel" type="Label" parent="Canvas/GameUI/Score/ScoreContainer"]
+layout_mode = 2
+text = "0"
+label_settings = ExtResource("7_dm7jd")
+
+[node name="Ready" type="Control" parent="Canvas/GameUI"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="ReadyContainer" type="MarginContainer" parent="Canvas/GameUI/Ready"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -240.0
+offset_top = -130.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="ReadyLabel" type="Label" parent="Canvas/GameUI/Ready/ReadyContainer"]
+layout_mode = 2
+text = "Ready 0/2"
+label_settings = SubResource("LabelSettings_whjnv")
+
+[node name="Timer" type="Control" parent="Canvas/GameUI"]
+layout_mode = 2
+mouse_filter = 2
+script = ExtResource("5_peuix")
+
+[node name="TimerContainer" type="MarginContainer" parent="Canvas/GameUI/Timer"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -240.0
+offset_bottom = 100.0
+grow_horizontal = 0
+
+[node name="TimerLabel" type="Label" parent="Canvas/GameUI/Timer/TimerContainer"]
+layout_mode = 2
+text = "0:00"
+label_settings = ExtResource("5_ofmrh")
+horizontal_alignment = 2
+
+[node name="TextArea" type="Control" parent="Canvas/GameUI"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="TextContainer" type="MarginContainer" parent="Canvas/GameUI/TextArea"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_top = -86.0
+offset_right = 40.0
+offset_bottom = -46.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="TextBox" parent="Canvas/GameUI/TextArea/TextContainer" instance=ExtResource("2_j0slu")]
+layout_mode = 2
+
+[node name="Tasks" type="Control" parent="Canvas/GameUI"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Canvas/GameUI/Tasks"]
+layout_mode = 0
+offset_right = 900.0
+offset_bottom = 200.0
+
+[node name="GridContainer" type="GridContainer" parent="Canvas/GameUI/Tasks/MarginContainer"]
+layout_mode = 2
+theme_override_constants/h_separation = 160
+columns = 5
+
+[node name="SignMenu" type="Control" parent="Canvas/GameUI"]
+layout_mode = 2
+mouse_filter = 2
+mouse_default_cursor_shape = 3
+script = ExtResource("3_6r30l")
+
+[node name="MarginContainer" type="MarginContainer" parent="Canvas/GameUI/SignMenu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_top = 30
+theme_override_constants/margin_right = 30
+theme_override_constants/margin_bottom = 30
+
+[node name="Panel" type="Panel" parent="Canvas/GameUI/SignMenu/MarginContainer"]
+layout_mode = 2
+mouse_filter = 2
+theme = ExtResource("3_yot4q")
+
+[node name="MarginContainer" type="MarginContainer" parent="Canvas/GameUI/SignMenu/MarginContainer/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_top = 30
+theme_override_constants/margin_right = 30
+theme_override_constants/margin_bottom = 30
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Canvas/GameUI/SignMenu/MarginContainer/Panel/MarginContainer"]
+layout_mode = 2
+mouse_filter = 2
+horizontal_scroll_mode = 0
+
+[node name="GridContainer" type="GridContainer" parent="Canvas/GameUI/SignMenu/MarginContainer/Panel/MarginContainer/ScrollContainer"]
+layout_mode = 2
+mouse_filter = 2
+columns = 6
+
+[node name="EndMenu" type="Control" parent="Canvas/GameUI"]
+layout_mode = 2
+mouse_filter = 2
+script = ExtResource("9_r61f7")
+
+[node name="Panel" type="Panel" parent="Canvas/GameUI/EndMenu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -160.0
+offset_top = -300.0
+offset_right = 160.0
+offset_bottom = 300.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme = ExtResource("3_yot4q")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Canvas/GameUI/EndMenu/Panel"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -152.0
+offset_right = 152.0
+offset_bottom = 139.0
+grow_horizontal = 2
+mouse_filter = 2
+
+[node name="LevelComplete" type="Label" parent="Canvas/GameUI/EndMenu/Panel/VBoxContainer"]
+layout_mode = 2
+text = "Level 
+Complete!"
+label_settings = SubResource("LabelSettings_j32bo")
+horizontal_alignment = 1
+
+[node name="Stars" type="HBoxContainer" parent="Canvas/GameUI/EndMenu/Panel/VBoxContainer"]
+custom_minimum_size = Vector2(300, 100)
+layout_mode = 2
+
+[node name="Star1" type="TextureRect" parent="Canvas/GameUI/EndMenu/Panel/VBoxContainer/Stars"]
+layout_mode = 2
+texture = ExtResource("9_noxkl")
+expand_mode = 2
+stretch_mode = 4
+
+[node name="Label" type="Label" parent="Canvas/GameUI/EndMenu/Panel/VBoxContainer/Stars/Star1"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -18.0
+offset_top = -10.5
+offset_right = 18.0
+offset_bottom = 10.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "80"
+horizontal_alignment = 1
+
+[node name="Star2" type="TextureRect" parent="Canvas/GameUI/EndMenu/Panel/VBoxContainer/Stars"]
+layout_mode = 2
+texture = ExtResource("9_noxkl")
+expand_mode = 2
+stretch_mode = 4
+
+[node name="Label" type="Label" parent="Canvas/GameUI/EndMenu/Panel/VBoxContainer/Stars/Star2"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -18.0
+offset_top = -10.5
+offset_right = 18.0
+offset_bottom = 10.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "160
+"
+horizontal_alignment = 1
+
+[node name="Star3" type="TextureRect" parent="Canvas/GameUI/EndMenu/Panel/VBoxContainer/Stars"]
+layout_mode = 2
+texture = ExtResource("9_noxkl")
+expand_mode = 2
+stretch_mode = 4
+
+[node name="Label" type="Label" parent="Canvas/GameUI/EndMenu/Panel/VBoxContainer/Stars/Star3"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -18.0
+offset_top = -10.5
+offset_right = 18.0
+offset_bottom = 10.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "240"
+horizontal_alignment = 1
+
+[node name="Score" type="Label" parent="Canvas/GameUI/EndMenu/Panel/VBoxContainer"]
+layout_mode = 2
+text = "Score"
+label_settings = SubResource("LabelSettings_2hvk4")
+horizontal_alignment = 1
+
+[node name="ScoreNum" type="Label" parent="Canvas/GameUI/EndMenu/Panel/VBoxContainer"]
+layout_mode = 2
+text = "0"
+label_settings = SubResource("LabelSettings_h1fs1")
+horizontal_alignment = 1
+
+[node name="RestartButtonContainer" type="MarginContainer" parent="Canvas/GameUI/EndMenu/Panel/VBoxContainer"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_bottom = 4
+
+[node name="RestartButton" type="Button" parent="Canvas/GameUI/EndMenu/Panel/VBoxContainer/RestartButtonContainer"]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+mouse_default_cursor_shape = 2
+text = "Restart Stage"
+icon_alignment = 1
+
+[node name="NextButtonContainer" type="MarginContainer" parent="Canvas/GameUI/EndMenu/Panel/VBoxContainer"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="NextButton" type="Button" parent="Canvas/GameUI/EndMenu/Panel/VBoxContainer/NextButtonContainer"]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+mouse_default_cursor_shape = 2
+text = "Next Stage"
+icon_alignment = 1
+
+[node name="QuitButtonContainer" type="MarginContainer" parent="Canvas/GameUI/EndMenu/Panel/VBoxContainer"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="QuitButton" type="Button" parent="Canvas/GameUI/EndMenu/Panel/VBoxContainer/QuitButtonContainer"]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+mouse_default_cursor_shape = 2
+text = "Quit"
+icon_alignment = 1
+
+[node name="MenuUI" type="MarginContainer" parent="Canvas"]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("11_sul2b")
+
+[node name="MainMenu" parent="Canvas/MenuUI" instance=ExtResource("12_spm6h")]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="LevelSelectMenu" parent="Canvas/MenuUI" instance=ExtResource("11_fuj7d")]
+visible = false
+layout_mode = 2
+mouse_filter = 2
+
+[connection signal="text_finished" from="Canvas/GameUI/TextArea/TextContainer/TextBox" to="." method="_on_text_finished"]
+[connection signal="sign_pressed" from="Canvas/GameUI/SignMenu" to="." method="_on_sign_pressed"]
+[connection signal="next_level_pressed" from="Canvas/GameUI/EndMenu" to="." method="_on_next_level_pressed"]
+[connection signal="restart_level_pressed" from="Canvas/GameUI/EndMenu" to="." method="_on_restart_level_pressed"]
+[connection signal="pressed" from="Canvas/GameUI/EndMenu/Panel/VBoxContainer/RestartButtonContainer/RestartButton" to="Canvas/GameUI/EndMenu" method="_on_restart_button_pressed"]
+[connection signal="pressed" from="Canvas/GameUI/EndMenu/Panel/VBoxContainer/NextButtonContainer/NextButton" to="Canvas/GameUI/EndMenu" method="_on_next_button_pressed"]
+[connection signal="pressed" from="Canvas/GameUI/EndMenu/Panel/VBoxContainer/QuitButtonContainer/QuitButton" to="Canvas/GameUI/EndMenu" method="_on_quit_button_pressed"]
+[connection signal="play_pressed" from="Canvas/MenuUI/MainMenu" to="." method="_on_main_menu_play_pressed"]
+[connection signal="host_pressed" from="Canvas/MenuUI/LevelSelectMenu" to="." method="_on_host_pressed"]
+[connection signal="join_pressed" from="Canvas/MenuUI/LevelSelectMenu" to="." method="_on_join_pressed"]
+[connection signal="level_selected" from="Canvas/MenuUI/LevelSelectMenu" to="." method="_on_level_selected"]

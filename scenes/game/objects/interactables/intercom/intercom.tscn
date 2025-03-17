@@ -1,0 +1,23 @@
+[gd_scene load_steps=5 format=3 uid="uid://cwl2w7ibjphtu"]
+
+[ext_resource type="Script" path="res://scenes/game/objects/interactables/intercom/intercom.gd" id="1_acphp"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wjl2k"]
+albedo_color = Color(0.158472, 0.158472, 0.158472, 1)
+roughness = 0.4
+
+[sub_resource type="BoxMesh" id="BoxMesh_d741q"]
+material = SubResource("StandardMaterial3D_wjl2k")
+size = Vector3(0.4, 0.4, 0.1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_5u1r0"]
+size = Vector3(0.4, 0.4, 0.1)
+
+[node name="Intercom" type="StaticBody3D"]
+script = ExtResource("1_acphp")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_d741q")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_5u1r0")

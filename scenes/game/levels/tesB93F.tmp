@@ -1,0 +1,68 @@
+[gd_scene load_steps=13 format=3 uid="uid://btn2tmbe4yhb8"]
+
+[ext_resource type="PackedScene" uid="uid://bevevh5x2q5qi" path="res://scenes/game/characters/player/player_character.tscn" id="1_12ay7"]
+[ext_resource type="Script" path="res://scenes/game/cameras/player_cam_rig.gd" id="2_uap38"]
+[ext_resource type="PackedScene" uid="uid://dhmmc8v4smbf8" path="res://scenes/game/objects/interactables/number_display/number.tscn" id="4_4sidm"]
+[ext_resource type="PackedScene" path="res://scenes/game/objects/interactables/printer/printer.tscn" id="4_6xuqd"]
+[ext_resource type="PackedScene" uid="uid://cwl2w7ibjphtu" path="res://scenes/game/objects/interactables/intercom/intercom.tscn" id="5_be3kk"]
+[ext_resource type="PackedScene" uid="uid://dvurt8rspyqlw" path="res://scenes/game/objects/interactables/button/button.tscn" id="5_el2he"]
+[ext_resource type="PackedScene" path="res://scenes/game/objects/interactables/terminal/terminal.tscn" id="5_sbylp"]
+[ext_resource type="PackedScene" path="res://scenes/game/levels/score.tscn" id="8_et6jo"]
+[ext_resource type="Script" path="res://scenes/game/levels/timer.gd" id="9_oncpp"]
+[ext_resource type="PackedScene" path="res://scenes/game/levels/timer_label.tscn" id="10_eclxg"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_5v4ew"]
+size = Vector3(20, 0.1, 20)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_ahyrb"]
+size = Vector2(20, 20)
+
+[node name="TestLevel" type="Node3D"]
+
+[node name="Floor" type="StaticBody3D" parent="."]
+collision_layer = 4
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor"]
+shape = SubResource("BoxShape3D_5v4ew")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor"]
+mesh = SubResource("PlaneMesh_ahyrb")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 12.3305, 0)
+
+[node name="PlayerCharacter" parent="." instance=ExtResource("1_12ay7")]
+collision_layer = 2
+collision_mask = 4
+
+[node name="PlayerCamRig" type="Marker3D" parent="." node_paths=PackedStringArray("target")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.58424, 0)
+script = ExtResource("2_uap38")
+target = NodePath("../PlayerCharacter")
+
+[node name="PlayerCam" type="Camera3D" parent="PlayerCamRig"]
+current = true
+
+[node name="Printer" parent="." instance=ExtResource("4_6xuqd")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -6.00149, 0.5, 4.81404)
+
+[node name="Terminal" parent="." node_paths=PackedStringArray("printers") instance=ExtResource("5_sbylp")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 5.87806, 0.5, 4.74736)
+printers = [NodePath("../Printer")]
+
+[node name="Intercom" parent="." instance=ExtResource("5_be3kk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 6.98598)
+
+[node name="Number" parent="." instance=ExtResource("4_4sidm")]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -3.03586, 0.5, 5)
+
+[node name="Button" parent="." instance=ExtResource("5_el2he")]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 2.54173, 0.5, 5)
+
+[node name="ScoreLabel" parent="." instance=ExtResource("8_et6jo")]
+
+[node name="Timer" type="Timer" parent="."]
+autostart = true
+script = ExtResource("9_oncpp")
+
+[node name="TimerLabel" parent="." instance=ExtResource("10_eclxg")]

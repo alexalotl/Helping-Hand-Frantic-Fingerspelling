@@ -1,0 +1,10 @@
+[gd_resource type="LabelSettings" load_steps=2 format=3 uid="uid://b50y5qdyxlgfj"]
+
+[ext_resource type="FontFile" uid="uid://c1yv5y5qfaf0g" path="res://fonts/AnimeAceRegular.otf" id="1_vyeic"]
+
+[resource]
+font = ExtResource("1_vyeic")
+font_size = 36
+shadow_size = 5
+shadow_color = Color(0.301961, 0.0392157, 0.14902, 0.392157)
+shadow_offset = Vector2(2, 2)

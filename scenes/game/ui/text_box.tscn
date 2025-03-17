@@ -1,0 +1,57 @@
+[gd_scene load_steps=4 format=3 uid="uid://ccbxsuru0p8uo"]
+
+[ext_resource type="Script" path="res://scenes/game/ui/text_box.gd" id="1_pott1"]
+[ext_resource type="Theme" uid="uid://e78vaxtv1jt8" path="res://themes/sprout_text.theme" id="2_lquo3"]
+[ext_resource type="LabelSettings" uid="uid://b50y5qdyxlgfj" path="res://labels/text_box_settings.tres" id="3_xlqkv"]
+
+[node name="TextBox" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_pott1")
+
+[node name="TextBoxContainer" type="MarginContainer" parent="."]
+layout_mode = 0
+offset_left = -516.5
+offset_top = -82.5
+offset_right = 516.5
+offset_bottom = 82.5
+
+[node name="TextBoxPanel" type="Panel" parent="TextBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_lquo3")
+
+[node name="MarginContainer" type="MarginContainer" parent="TextBoxContainer/TextBoxPanel"]
+layout_mode = 0
+offset_right = 1033.0
+offset_bottom = 270.0
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="End" type="Label" parent="TextBoxContainer/TextBoxPanel/MarginContainer"]
+layout_mode = 2
+text = "e"
+label_settings = ExtResource("3_xlqkv")
+horizontal_alignment = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TextBoxContainer/TextBoxPanel/MarginContainer"]
+layout_mode = 2
+
+[node name="Start" type="Label" parent="TextBoxContainer/TextBoxPanel/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+label_settings = ExtResource("3_xlqkv")
+
+[node name="Text" type="Label" parent="TextBoxContainer/TextBoxPanel/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(640, 128)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+text = "THE QUICK BROWN FOX JUMPED OVER THE LAZY DOG THE QUICK BROWN FOX JUMPED OVER THE LAZY DOG THE QUICK BROWN FOX JUMPED OVER THE LAZY DOG"
+label_settings = ExtResource("3_xlqkv")
+autowrap_mode = 3

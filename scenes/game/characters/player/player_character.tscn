@@ -1,0 +1,85 @@
+[gd_scene load_steps=11 format=3 uid="uid://bevevh5x2q5qi"]
+
+[ext_resource type="Script" path="res://scenes/game/characters/player/player_character.gd" id="1_cjw8d"]
+[ext_resource type="Texture2D" uid="uid://ciucunbfey4hk" path="res://textures/player_character.tres" id="2_xkrup"]
+[ext_resource type="Script" path="res://scenes/game/characters/player/focus.gd" id="2_y678c"]
+[ext_resource type="Texture2D" uid="uid://dm4p4rg44pv13" path="res://textures/ui/sign_menu/a.png" id="3_5dvli"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_3u0qb"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:player_id")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath(".:is_interacting")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_pkflt"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6tkvh"]
+albedo_color = Color(0.919893, 0.627862, 0.334542, 1)
+albedo_texture = ExtResource("2_xkrup")
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_hop6g"]
+material = SubResource("StandardMaterial3D_6tkvh")
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_kd7ha"]
+radius = 2.5
+
+[sub_resource type="BoxMesh" id="BoxMesh_q124g"]
+size = Vector3(1, 0.1, 0.8)
+
+[node name="PlayerCharacter" type="CharacterBody3D"]
+collision_layer = 2
+collision_mask = 4
+script = ExtResource("1_cjw8d")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_3u0qb")
+
+[node name="CharacterCollision" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_pkflt")
+
+[node name="CharacterMesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+layers = 2
+cast_shadow = 0
+mesh = SubResource("CapsuleMesh_hop6g")
+
+[node name="Focus" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, 0)
+script = ExtResource("2_y678c")
+
+[node name="DetectionArea" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DetectionArea"]
+shape = SubResource("SphereShape3D_kd7ha")
+
+[node name="SignPanel" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 1, -0.750146)
+mesh = SubResource("BoxMesh_q124g")
+
+[node name="SignTexture" type="Decal" parent="SignPanel"]
+transform = Transform3D(-1, 8.68078e-08, 1.03512e-08, 0, 0.118404, -0.992966, -8.74228e-08, -0.992966, -0.118404, 0, 0.0513998, 0)
+size = Vector3(1, 0.872363, 0.1)
+texture_albedo = ExtResource("3_5dvli")
+
+[node name="RunDuration" type="Timer" parent="."]
+wait_time = 3.0
+
+[node name="Cooldown" type="Timer" parent="."]
+wait_time = 5.0
+
+[node name="SignDisplayTimer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+
+[connection signal="body_entered" from="DetectionArea" to="." method="_on_detection_area_body_entered"]
+[connection signal="body_exited" from="DetectionArea" to="." method="_on_detection_area_body_exited"]
+[connection signal="timeout" from="RunDuration" to="." method="_on_run_duration_timeout"]
+[connection signal="timeout" from="Cooldown" to="." method="_on_cooldown_timeout"]
+[connection signal="timeout" from="SignDisplayTimer" to="." method="_on_sign_display_timer_timeout"]

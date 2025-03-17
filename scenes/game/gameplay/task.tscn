@@ -1,0 +1,52 @@
+[gd_scene load_steps=3 format=3 uid="uid://ca3lak3a5l4rg"]
+
+[ext_resource type="Script" path="res://scenes/game/gameplay/task.gd" id="1_1d70e"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_whlr7"]
+properties/0/path = NodePath(".:time_limit")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:step1player")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath(".:step2player")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+properties/3/path = NodePath(".:points_for_failing")
+properties/3/spawn = true
+properties/3/replication_mode = 1
+properties/4/path = NodePath(".:task_type")
+properties/4/spawn = true
+properties/4/replication_mode = 1
+properties/5/path = NodePath(".:title")
+properties/5/spawn = true
+properties/5/replication_mode = 1
+properties/6/path = NodePath(".:step1")
+properties/6/spawn = true
+properties/6/replication_mode = 1
+properties/7/path = NodePath(".:step2")
+properties/7/spawn = true
+properties/7/replication_mode = 1
+properties/8/path = NodePath(".:data")
+properties/8/spawn = true
+properties/8/replication_mode = 1
+properties/9/path = NodePath(".:current_step")
+properties/9/spawn = true
+properties/9/replication_mode = 2
+properties/10/path = NodePath(".:time_left")
+properties/10/spawn = true
+properties/10/replication_mode = 1
+properties/11/path = NodePath(".:points_per_time_remaining")
+properties/11/spawn = true
+properties/11/replication_mode = 1
+
+[node name="Task" type="Node"]
+script = ExtResource("1_1d70e")
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_whlr7")
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

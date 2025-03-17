@@ -1,0 +1,69 @@
+[gd_scene load_steps=9 format=3 uid="uid://btn2tmbe4yhb8"]
+
+[ext_resource type="PackedScene" uid="uid://bevevh5x2q5qi" path="res://scenes/game/characters/player/player_character.tscn" id="1_12ay7"]
+[ext_resource type="Script" path="res://scenes/game/cameras/player_cam_rig.gd" id="2_uap38"]
+[ext_resource type="Script" path="res://scenes/game/objects/interactables/interactable.gd" id="3_uihei"]
+[ext_resource type="Script" path="res://scenes/game/objects/interactables/number_display/number_display.gd" id="4_fdoq5"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_5v4ew"]
+size = Vector3(20, 0.1, 20)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_ahyrb"]
+size = Vector2(20, 20)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_y36fk"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_q8an2"]
+
+[node name="TestLevel" type="Node3D"]
+
+[node name="Floor" type="StaticBody3D" parent="."]
+collision_layer = 4
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor"]
+shape = SubResource("BoxShape3D_5v4ew")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor"]
+mesh = SubResource("PlaneMesh_ahyrb")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 12.3305, 0)
+
+[node name="PlayerCharacter" parent="." instance=ExtResource("1_12ay7")]
+collision_layer = 2
+collision_mask = 4
+
+[node name="PlayerCamRig" type="Marker3D" parent="." node_paths=PackedStringArray("target")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.58424, 0)
+script = ExtResource("2_uap38")
+target = NodePath("../PlayerCharacter")
+
+[node name="PlayerCam" type="Camera3D" parent="PlayerCamRig"]
+current = true
+
+[node name="TestInteractable" type="StaticBody3D" parent="." node_paths=PackedStringArray("cam")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.67782, 0.5, 5.41509)
+script = ExtResource("3_uihei")
+cam = NodePath("InteractCam")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="TestInteractable"]
+shape = SubResource("BoxShape3D_y36fk")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="TestInteractable"]
+mesh = SubResource("BoxMesh_q8an2")
+
+[node name="InteractCam" type="Camera3D" parent="TestInteractable"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.649665, 3.07403)
+
+[node name="TestNumberDisplay" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.678, 0.5, 5.415)
+script = ExtResource("4_fdoq5")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="TestNumberDisplay"]
+shape = SubResource("BoxShape3D_y36fk")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="TestNumberDisplay"]
+mesh = SubResource("BoxMesh_q8an2")
+
+[node name="InteractCamDNumDisplay" type="Camera3D" parent="TestNumberDisplay"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.649665, 3.07403)
